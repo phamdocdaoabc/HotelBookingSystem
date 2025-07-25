@@ -1,0 +1,3 @@
+[2025-07-24 22:52:38] Đặt phòng: AB003, khách hàng: Nguyễn Trung Hiếu, CMND/CCCD: 093847364
+[2025-07-24 22:56:29] Trả phòng: AB003, ID: 6, tổng ngày ở: 1, Tổng tiền: 1500000.0
+[2025-07-24 22:57:59] Thanh toán cho khách: Nguyễn Trung Hiếu, phòng: AB003, ID: 6, tổng tiền: 1500000.0

@@ -1,0 +1,4 @@
+datasource:
+  url: "jdbc:mysql://localhost:3306/hotel_db?useSSL=false&serverTimezone=Asia/Ho_Chi_Minh&characterEncoding=UTF-8"
+  username: root
+  password: root
