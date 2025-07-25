@@ -44,11 +44,27 @@ public class Main {
                 choice = Integer.parseInt(scanner.nextLine());
                 switch (choice) {
                     case 1: // Xem danh sách phòng
-                        System.out.println("\n:))Danh sách phòng:");
+                        System.out.println("\n===== DANH SÁCH PHÒNG =====");
+
+                    // In dòng tiêu đề
+                        System.out.println("+------------+----------------+--------------+-------------+");
+                        System.out.printf("| %-10s | %-14s | %-12s | %-11s |\n",
+                                "Room No", "Type", "Status", "Price (VND)");
+                        System.out.println("+------------+----------------+--------------+-------------+");
+
+                    // In từng phòng
                         for (Room room : roomService.getAllRooms()) {
-                            System.out.println(room.getRoomNumber() + " | " + room.getType() + " | "
-                                    + (room.isBooked() ? "Đã đặt" : "Chưa đặt") + " | " + room.getPriceNight() + " VND");
+                            String status = room.isBooked() ? "Đã đặt" : "Chưa đặt";
+                            String formattedPrice = String.format("%,d", (int) room.getPriceNight()); // định dạng có dấu phẩy
+                            System.out.printf("| %-10s | %-14s | %-12s | %-11s |\n",
+                                    room.getRoomNumber(),
+                                    room.getType(),
+                                    status,
+                                    formattedPrice);
                         }
+
+                        System.out.println("+------------+----------------+--------------+-------------+");
+
                         showExport();
                         int exportChoice = Integer.parseInt(scanner.nextLine());
                         if (exportChoice == 1) {
@@ -93,13 +109,26 @@ public class Main {
                         break;
 
                     case 3: // Xem phòng trống
-                        System.out.println("\nDanh sách phòng trống:");
+                        System.out.println("\n===== Danh sách phòng trống =====");
+                        // In dòng tiêu đề
+                        System.out.println("+------------+----------------+--------------+-------------+");
+                        System.out.printf("| %-10s | %-14s | %-12s | %-11s |\n",
+                                "Room No", "Type", "Status", "Price (VND)");
+                        System.out.println("+------------+----------------+--------------+-------------+");
+
                         for (Room room : roomService.getAllRooms()) {
+                            String status = room.isBooked() ? "Đã đặt" : "Chưa đặt";
+                            String formattedPrice = String.format("%,d", (int) room.getPriceNight()); // định dạng có dấu phẩy
                             if (!room.isBooked()) {
-                                System.out.println(room.getRoomNumber() + " | " + room.getType() + " | "
-                                        + room.getPriceNight() + " VND");
+                                System.out.printf("| %-10s | %-14s | %-12s | %-11s |\n",
+                                        room.getRoomNumber(),
+                                        room.getType(),
+                                        status,
+                                        formattedPrice);
                             }
                         }
+
+                        System.out.println("+------------+----------------+--------------+-------------+");
                         showExport();
                         int emptyExportChoice = Integer.parseInt(scanner.nextLine());
                         if (emptyExportChoice == 1) {
@@ -163,13 +192,36 @@ public class Main {
                         break;
 
                     case 8: // Xem danh sách khách hàng
-                        System.out.println("Danh sách khách hàng:");
+                        System.out.println("\n===== Danh sách khách hàng =====");
+                        System.out.println("+----+----------------------+--------------+------------+---------------------+------------+-------------------------+---------------------+---------------+------------------+");
+                        System.out.printf("| %-2s | %-20s | %-12s | %-10s | %-19s | %-10s | %-23s | %-19s | %-13s | %-16s |\n",
+                                "ID", "Name", "ID Card", "Room No", "Booking Date", "Phone", "Email", "Check Out", "Total (VND)", "Status");
+                        System.out.println("+----+----------------------+--------------+------------+---------------------+------------+-------------------------+---------------------+---------------+------------------+");
                         for (Customer customer : customerService.getAllCustomer()) {
-                            System.out.println(customer.getId() + " | " + customer.getName() + " | " + customer.getIdCard() + " | "
-                                    + customer.getRoomNumber() + " | " + customer.getBookingDate() + " | " + customer.getPhone() + " | "
-                                    + customer.getEmail() + " | " + customer.getCheckOut() + " | " + customer.getTotalPayment() + " VND"
-                                    + customer.getPaymentStatus());
+                            String checkOut = customer.getCheckOut() != null
+                                    ? customer.getCheckOut().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
+                                    : "N/A";
+
+                            String bookingDate = customer.getBookingDate() != null
+                                    ? customer.getBookingDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
+                                    : "N/A";
+
+                            String formattedTotal = String.format("%,d", (int) customer.getTotalPayment());
+
+                            System.out.printf("| %-2d | %-20s | %-12s | %-10s | %-19s | %-10s | %-23s | %-19s | %-13s | %-16s |\n",
+                                    customer.getId(),
+                                    customer.getName(),
+                                    customer.getIdCard(),
+                                    customer.getRoomNumber(),
+                                    bookingDate,
+                                    customer.getPhone(),
+                                    customer.getEmail(),
+                                    checkOut,
+                                    formattedTotal,
+                                    customer.getPaymentStatus());
                         }
+
+                        System.out.println("+----+----------------------+--------------+------------+---------------------+------------+-------------------------+---------------------+---------------+------------------+");
                         showExport();
                         int customerExportChoice = Integer.parseInt(scanner.nextLine());
                         if (customerExportChoice == 1) {
@@ -227,7 +279,7 @@ public class Main {
         System.out.println("\n===== HỆ THỐNG ĐẶT PHÒNG KHÁCH SẠN =====");
         System.out.println("1. Xem danh sách phòng");
         System.out.println("2. CRUD phòng");
-        System.out.println("3. Xem phòng trống");
+        System.out.println("3. Xem danh sách phòng trống");
         System.out.println("4. Đặt phòng");
         System.out.println("5. Trả phòng");
         System.out.println("6. Thanh Toán");

@@ -86,7 +86,7 @@ public class CustomerService {
                 throw new NullPointerException("Không tìm thấy khách hàng tương ứng!");
             }
             Room room = roomService.getRoomByNumber(customer.getRoomNumber());
-            if(customer.getCheckOut() != null && customer.getTotalPayment() != null){
+            if(customer.getCheckOut() != null){
                 throw new IllegalStateException("Khách hàng không có phòng nào chưa trả!");
             }
             customer.setCheckOut(LocalDateTime.now());

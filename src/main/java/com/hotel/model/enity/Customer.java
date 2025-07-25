@@ -13,7 +13,7 @@ public class Customer {
     private String phone;
     private String email;
     private LocalDateTime CheckOut;
-    private Double totalPayment;
+    private double totalPayment;
     private PaymentStatus paymentStatus;
 
 
@@ -98,11 +98,11 @@ public class Customer {
         CheckOut = checkOut;
     }
 
-    public Double getTotalPayment() {
+    public double getTotalPayment() {
         return totalPayment;
     }
 
-    public void setTotalPayment(Double totalPayment) {
+    public void setTotalPayment(double totalPayment) {
         this.totalPayment = totalPayment;
     }
 
